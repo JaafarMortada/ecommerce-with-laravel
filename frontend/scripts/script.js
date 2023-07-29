@@ -1,3 +1,44 @@
+class Product {
+    constructor(id, name, details, category, price, image_path) {
+        this.id = id;
+        this.name = name;
+        this.details = details;
+        this.category = category;
+        this.price = price;
+        this.image_path = image_path;
+        }
+        
+    displayProductCard(){
+        return `
+        <div class="product-card">
+        <img src="../assets/images/no-pic.webp" class="product-image">
+        <div class="product-details-container" id="one">
+            <div class="product-details">
+                <div>
+                    <span class="card-text-name">Name:</span>
+                    <span class="card-text">${this.name}</span>
+                </div>
+                <div>
+                    <span class="card-text-name">Price:</span>
+                    <span class="card-text">${this.price}</span><span class="card-text">$</span>
+                </div>
+                <div>
+                    <span class="card-text-name">Category:</span>
+                    <span class="card-text">${this.category}</span>
+                </div>
+            </div>
+            <div class="product-btns">
+                <button class="card-btn">&#9733;</button>
+                <button class="card-btn">&#128722;</button>
+            </div>
+        </div>
+        <div class="card-discription">
+            ${this.details}
+        </div>
+        `
+    }
+    }
+
 const pages = {};
 
 pages.base_url = "http://127.0.0.1:8000/api/";
@@ -71,23 +112,40 @@ pages.signup = () => {
     })
     }
 
-
-
-pages.productCardHover = () =>{
-    const card = document.getElementById('product-card')
-
-    card.addEventListener('mousemove', () => {
-
-        const desc = document.getElementById('two')
-        desc.style.opacity = '1'
-        desc.style.display = 'flex'
-        document.getElementsByClassName('product-image')[0].style.display = 'none'
+pages.showProductsDashboard = () => {
+    const show_classes_form_data = new FormData();
+    fetch(pages.base_url + 'dashboard', {
+        method: "POST",
+        body: show_classes_form_data
+        })
+        .then(response => response.json())
+        .then(data => {
+        data.products.forEach(element => {
+            const product_obj = new Product(
+            element.id,
+            element.name,
+            element.details,
+            element.category,
+            element.price,
+            element.image_path,
+            );
+            
+        document.querySelector('.product-cards-container').innerHTML += product_obj.displayProductCard();
+        const productCards = document.querySelectorAll('.product-card');
+        productCards.forEach((card) => {
+            card.addEventListener('mouseenter', () => {
+                const image = card.querySelector('.product-image');
+                const description = card.querySelector('.card-discription');
+                image.style.display = 'none';
+                description.style.display = 'flex';
+            });
+            card.addEventListener('mouseleave', () => {
+                const image = card.querySelector('.product-image');
+                const description = card.querySelector('.card-discription');
+                image.style.display = 'block';
+                description.style.display = 'none';
+                });
+            });
+        });
     })
-
-    card.addEventListener('mouseout', () => {
-        const details = document.getElementById('two')
-        details.style.display = 'none'
-
-        document.getElementsByClassName('product-image')[0].style.display = 'block'
-})
 }
