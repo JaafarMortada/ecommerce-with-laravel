@@ -15,7 +15,7 @@ body{
     align-items: center;
 }
 
-.signin-div{
+.signin-div, .signup-div{
     width: 400px;
     /* height: 500px; */
     border: 3px solid rgb(241, 80, 80);
@@ -26,7 +26,10 @@ body{
     gap: 2rem;
 }
 
-.signin-logo{
+.signup-div{
+    gap: 0.5rem;
+}
+.signin-logo, .signup-logo{
     display: inline;
     height: 67px;
     width: 67px;
@@ -43,13 +46,17 @@ body{
     gap: 1.5rem;
 }
 
-.signin-title{
+.logo-signup{
+    gap: 0;
+}
+
+.signin-title, .signup-title{
     font-size: 1.5rem;
     font-weight: 700;
     color: rgb(48, 48, 48);
 }
 
-.signin-input-with-label{
+.signin-input-with-label, .signup-input-with-label{
     display: flex;
     flex-flow: column wrap;
 }
@@ -68,20 +75,24 @@ input{
     margin-top: 0.5rem;
     padding: 0 15px 0;
     border-radius: 5px;
-    border: 3px solid rgba(48, 48, 48, 0.3);
+    border: 2px solid rgba(48, 48, 48, 0.3);
     -webkit-transition: 0.5s;
     transition: 0.5s;
     outline: none;
 }
 
 input:focus{
-    border: 3px solid rgba(241, 80, 80, 0.5);
+    border: 2px solid rgba(241, 80, 80, 0.5);
 }
 
-.signin-btn-link{
+.signin-btn-link, .signup-btn-link{
     display: flex;
     justify-content: space-between;
     margin: 1rem 10px 1rem;
+}
+
+.signup-btn-link{
+    justify-content: flex-end
 }
 
 a{
@@ -112,4 +123,8 @@ button{
 
 button:hover{
     background-color: rgb(241, 80, 80);
+}
+
+.signup-btn{
+    height: 2.5rem;
 }
