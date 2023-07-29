@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\ProductsController;
 
 Route::controller(AuthController::class)->group(function () {
     Route::post('login', 'login');
@@ -9,3 +10,5 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('logout', 'logout');
     Route::post('refresh', 'refresh');
 });
+
+Route::post('/add_update_product/{action?}', [ProductsController::class, "addOrUpdateProduct"]);
