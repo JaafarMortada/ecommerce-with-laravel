@@ -13,3 +13,4 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::post('/add_update_product/{action?}', [ProductsController::class, "addOrUpdateProduct"]);
 Route::get('/delete_product/{id}', [ProductsController::class, "deleteProduct"]);
+Route::post('/dashboard', [ProductsController::class, "getProducts"]);
