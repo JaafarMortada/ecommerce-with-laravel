@@ -12,7 +12,7 @@ body{
 }
 
 .navbar {
-    list-style-type: none;
+    /* list-style-type: none; */
     margin: 0;
     padding: 0;
     width: 100vw;
@@ -35,11 +35,12 @@ body{
     font-weight: 700;
     color: rgb(48, 48, 48);
     cursor: pointer;
+    -webkit-transition: 0.5s;
 }
 
 .navbar-button:hover{
     background-color: #e48686;
-    transition: 0.5s;
+    
 }
 .right-nav{
     margin-right: 30px;
@@ -103,16 +104,12 @@ body{
     display: flex;
     flex-flow: column nowrap;
     padding-bottom: 0px;
-    -webkit-transition: box-shadow, height 0.3s ease-out;
-    -moz-transition: box-shadow, height 0.3s ease-out;
-    -o-transition: box-shadow, height 0.3s ease-out;
-    transition: box-shadow, height 0.3s ease-out;
+    -webkit-transition: box-shadow, height 0.5s ;
 }
 
 .product-card:hover{
     z-index: 20;
     height: 21rem;
-    /* width: 280px; */
     box-shadow: rgba(247, 129, 129, 1) -5px 5px 5px;
     z-index: 1;
 }
@@ -146,9 +143,9 @@ body{
     display: flex;
     justify-content: space-between;
     -webkit-transition: box-shadow, height 0.3s ease-out;
-    -moz-transition: box-shadow, height 0.3s ease-out;
+    /* -moz-transition: box-shadow, height 0.3s ease-out;
     -o-transition: box-shadow, height 0.3s ease-out;
-    transition: box-shadow, height 0.3s ease-out;
+    transition: box-shadow, height 0.3s ease-out; */
 }
 
 .product-btns{
@@ -164,11 +161,12 @@ body{
     font-size: larger;
     padding: 10px;
     border-radius: 5px;
+    -webkit-transition: 0.5s;
 }
 
 .card-btn:hover{
     background-color: #e48686;
-    transition: 0.4s;
+    
     cursor: pointer;
 }
 
