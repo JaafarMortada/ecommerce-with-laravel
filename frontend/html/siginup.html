@@ -19,11 +19,11 @@
         </div>
         <div class="signup-input-with-label">
             <label for="email-input">Enter your email:</label>
-            <input type="email" id="email-input" name="email-input" placeholder="Please enter your email">
+            <input type="email" id="email-input-signup" name="email-input" placeholder="Please enter your email">
         </div>
         <div class="signup-input-with-label">
             <label for="password-input">Enter your password:</label>
-            <input type="password" id="password-input" name="password-input" placeholder="Please enter your password">
+            <input type="password" id="password-input-signup" name="password-input" placeholder="Please enter your password">
         </div>
         <div class="signup-input-with-label">
             <label for="password-input-verify">verify your password:</label>
@@ -31,9 +31,13 @@
         </div>
         <div class="signup-btn-link">
             <!-- <a href="#">Dont have an account?<br>Create one here!</a> -->
-            <button type="button" class="signup-btn">Signup</button>
+            <button type="button" class="signup-btn" id="signup-btn">Signup</button>
         </div>
 
     </div>
+    <script src="../scripts/script.js"></script>
 </body>
+<script>
+    pages.signup()
+</script>
 </html>
