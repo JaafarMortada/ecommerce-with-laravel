@@ -25,5 +25,8 @@ class ProductsController extends Controller
         return json_encode(["product" => $product]);
     }
 
-    
+    function deleteProduct($id){
+        Product::find($id)->delete();
+        return json_encode(["product deleted." => true]);
+    }
 }
