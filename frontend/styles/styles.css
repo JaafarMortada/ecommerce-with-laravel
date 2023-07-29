@@ -143,9 +143,6 @@ body{
     display: flex;
     justify-content: space-between;
     -webkit-transition: box-shadow, height 0.3s ease-out;
-    /* -moz-transition: box-shadow, height 0.3s ease-out;
-    -o-transition: box-shadow, height 0.3s ease-out;
-    transition: box-shadow, height 0.3s ease-out; */
 }
 
 .product-btns{
@@ -166,7 +163,6 @@ body{
 
 .card-btn:hover{
     background-color: #e48686;
-    
     cursor: pointer;
 }
 
