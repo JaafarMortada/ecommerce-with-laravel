@@ -176,3 +176,27 @@ body{
     display: none;
     margin-top: 2rem;
 }
+
+footer{
+    margin-bottom: -1rem;
+    background-color: #dadada;
+    height: 6rem;
+    padding: 2rem;
+    border-top: 3px solid rgb(241, 80, 80);
+}
+
+.footer-container{
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+}
+
+.footer-top{
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer-bottom{
+    display: flex;
+    justify-content: center;
+}
