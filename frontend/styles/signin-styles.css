@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Roboto+Mono:ital,wght@0,100;0,200;0,300;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+*{
+    /* font-family: 'Roboto Mono', monospace; */
+    font-family: 'Open Sans', sans-serif;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    overflow-x: hidden;
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.signin-div{
+    width: 400px;
+    /* height: 500px; */
+    border: 3px solid rgb(241, 80, 80);
+    border-radius: 15px;
+    padding: 15px;
+    display: flex;
+    flex-flow: column wrap;
+    gap: 2rem;
+}
+
+.signin-logo{
+    display: inline;
+    height: 67px;
+    width: 67px;
+    padding-top: 5px;
+    margin-right: 20px;
+    margin-left: 20px;
+    flex:1
+}
+
+.logo{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.signin-title{
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: rgb(48, 48, 48);
+}
+
+.signin-input-with-label{
+    display: flex;
+    flex-flow: column wrap;
+}
+
+label{
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding-left: 10px;
+    color: rgb(48, 48, 48);
+}
+
+input{
+    height: 2.5rem;
+    font-size: 1.2rem;
+    color: rgb(48, 48, 48);
+    margin-top: 0.5rem;
+    padding: 0 15px 0;
+    border-radius: 5px;
+    border: 3px solid rgba(48, 48, 48, 0.3);
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    outline: none;
+}
+
+input:focus{
+    border: 3px solid rgba(241, 80, 80, 0.5);
+}
+
+.signin-btn-link{
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem 10px 1rem;
+}
+
+a{
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    -webkit-transition: 0.5s;
+    color: rgb(48, 48, 48);
+}
+
+a:visited{
+    color: rgb(48, 48, 48); 
+}
+
+a:hover{
+    color: rgb(241, 80, 80);
+}
+
+button{
+    background-color: #f5f5f5;
+    border: 0;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    -webkit-transition: 0.5s;
+    border-radius: 5px;
+}
+
+button:hover{
+    background-color: rgb(241, 80, 80);
+}
