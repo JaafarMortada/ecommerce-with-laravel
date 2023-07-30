@@ -77,6 +77,7 @@ pages.signup = () => {
     const password_input = document.getElementById('password-input-signup')
     const verify_password_input = document.getElementById('password-input-verify')
     const signup_btn = document.getElementById('signup-btn')
+    const usertype_checkbox = document.getElementById('usertype')
     
     signup_btn.addEventListener('click', e => {
         e.preventDefault()
@@ -84,12 +85,17 @@ pages.signup = () => {
         const email = email_input.value
         const password = password_input.value
         const verify_password = verify_password_input.value
+        let usertype = 'user'
+        if (usertype_checkbox.checked){
+            usertype = 'admin'
+        }
         if(email && password && verify_password && email && name ){
             if (password == verify_password){
                 const signup_form_data = new FormData();
                 signup_form_data.append("name", name);
                 signup_form_data.append("email", email);
                 signup_form_data.append("password", password);
+                signup_form_data.append("usertype", usertype);
                 
                 fetch(pages.base_url + "register", {
                     method: 'POST',
