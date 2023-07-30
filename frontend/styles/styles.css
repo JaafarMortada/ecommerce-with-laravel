@@ -109,6 +109,7 @@ body{
     flex-flow: column nowrap;
     padding-bottom: 0px;
     -webkit-transition: box-shadow, height 0.5s ;
+    cursor: pointer;
 }
 
 .product-card:hover{

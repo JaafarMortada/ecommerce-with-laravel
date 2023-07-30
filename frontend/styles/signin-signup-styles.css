@@ -128,3 +128,21 @@ button:hover{
 .signup-btn{
     height: 2.5rem;
 }
+
+#usertype{
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+}
+
+.usertype-div{
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    align-items: flex-end
+}
+
+.admin-label{
+    padding: 0;
+    cursor: pointer;
+}
