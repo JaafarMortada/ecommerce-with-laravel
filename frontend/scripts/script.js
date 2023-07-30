@@ -39,7 +39,7 @@ class Product {
     }
     displayProductCardForAdmin(){
         return `
-        <div class="product-card">
+        <div class="product-card" data-id="${this.id}">
         <img src="data:image/png;base64,${this.image_path}" class="product-image">
         <div class="product-details-container" id="one">
             <div class="product-details">
@@ -57,12 +57,39 @@ class Product {
                 </div>
             </div>
             <div class="product-btns">
-                <button class="card-btn edit-btn">✎</button>
-                <button class="card-btn delete-btn">&#128465;</button>
+                <button class="card-btn edit-btn-one">✎</button>
+                <button class="card-btn delete-btn-one">&#128465;</button>
             </div>
         </div>
         <div class="card-discription">
             ${this.details}
+        </div>
+        <div class="edit-modal">
+        <div class="modal-content">
+            <div class="modal-input-with-label">
+                <label for="edit-product-name-input">Product name:</label>
+                <input type="text" id="edit-product-name-input${this.id}" class="edit-product-name-input" name="edit-product-name-input" placeholder="Enter the product name" value="${this.name}">
+            </div>
+            <div class="modal-input-with-label">
+                <label for="edit-product-details-input">Product details:</label>
+                <input type="text" id="edit-product-details-input${this.id}" class="edit-product-details-input" name="edit-product-details-input" placeholder="Enter the product details" value="${this.details}">
+            </div>
+            <div class="modal-input-with-label">
+                <label for="edit-product-category-input">Product category:</label>
+                <input type="text" id="edit-product-category-input${this.id}" class="edit-product-category-input" name="edit-product-category-input" placeholder="Enter the product category" value="${this.category}">
+            </div>
+            <div class="modal-input-with-label">
+                <label for="edit-product-price-input">Product price:</label>
+                <input type="text" id="edit-product-price-input${this.id}" class="edit-product-price-input" name="edit-product-price-input" placeholder="Enter the product price" value="${this.price}">
+            </div>
+            <div class="modal-input-with-label">
+                <label for="edit-product-image-input">Product image:</label>
+                <input type="file" id="edit-product-image-input${this.id}" class="edit-product-image-input" name="edit-product-image-input" placeholder="Enter the product price" value="${this.image_path}">
+            </div>
+            <div class="modal-btns">
+                <button type="button" class="modal-btn close-btn" id="close-btn">close</button>
+                <button type="button" class="modal-btn edit-btn" id="edit-btn${this.id}">edit</button>
+            </div>
         </div>
         `
     }
@@ -181,21 +208,70 @@ pages.showProductsDashboard = () => {
         }
 
         const productCards = document.querySelectorAll('.product-card');
+        
         productCards.forEach((card) => {
-            card.addEventListener('mouseenter', () => {
-                const image = card.querySelector('.product-image');
-                const description = card.querySelector('.card-discription');
+
+            const edit_modal = card.querySelector('.edit-modal');
+            const image = card.querySelector('.product-image');
+            const description = card.querySelector('.card-discription');
+            const edit_btn = card.querySelector(".edit-btn-one")
+            
+            const close_edit_btn = card.querySelector(".close-btn")
+
+            card.addEventListener('mouseenter', (event) => {
                 image.style.display = 'none';
                 description.style.display = 'flex';
-            });
+                const product_id = event.currentTarget.dataset.id;
+                localStorage.setItem('prd_id', product_id)
+            })
+
             card.addEventListener('mouseleave', () => {
-                const image = card.querySelector('.product-image');
-                const description = card.querySelector('.card-discription');
                 image.style.display = 'block';
                 description.style.display = 'none';
-                });
-            });
-        });
+                localStorage.removeItem('prd_id')
+                })
+
+            edit_btn.addEventListener('click', ()=>{
+                edit_modal.style.display = 'block'
+            })
+            
+            close_edit_btn.addEventListener('click', ()=>{
+                edit_modal.style.display = 'none'
+            })
+            
+            const edit_btn_and_send = card.querySelector(".edit-btn")
+            edit_btn_and_send.addEventListener('click', () => {
+                
+                const edit_product_name_input = card.querySelector(".edit-product-name-input")
+                const edit_product_details_input = card.querySelector(".edit-product-details-input")
+                const edit_product_category_input = card.querySelector(".edit-product-category-input")
+                const edit_product_price_input = card.querySelector(".edit-product-price-input")
+                const edit_product_image_input = card.querySelector(".edit-product-image-input")
+
+                const new_name = edit_product_name_input.value
+                const new_details = edit_product_details_input.value
+                const new_category = edit_product_category_input.value
+                const new_price = edit_product_price_input.value
+                const new_image = edit_product_image_input.files[0]
+
+                const new_data = new FormData
+                
+                new_data.append("name", new_name);
+                new_data.append("details", new_details);
+                new_data.append("category", new_category);
+                new_data.append("price", new_price);
+                new_data.append("image_path", new_image);
+
+                fetch(pages.base_url + "add_update_product/" + localStorage.getItem('prd_id'), {
+                    method: "POST",
+                    body: new_data
+                }).then(response => response.json())
+                .then(result => console.log(result))
+                .catch(error => console.log('error', error));
+
+            })
+            })
+        })
     })
 }
 
