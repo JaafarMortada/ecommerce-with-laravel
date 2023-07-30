@@ -11,7 +11,7 @@ class Product {
     displayProductCard(){
         return `
         <div class="product-card">
-        <img src="../assets/images/no-pic.webp" class="product-image">
+        <img src="data:image/png;base64,${this.image_path}" class="product-image">
         <div class="product-details-container" id="one">
             <div class="product-details">
                 <div>
@@ -40,7 +40,7 @@ class Product {
     displayProductCardForAdmin(){
         return `
         <div class="product-card">
-        <img src="../assets/images/no-pic.webp" class="product-image">
+        <img src="data:image/png;base64,${this.image_path}" class="product-image">
         <div class="product-details-container" id="one">
             <div class="product-details">
                 <div>
@@ -55,10 +55,6 @@ class Product {
                     <span class="card-text-name">Category:</span>
                     <span class="card-text">${this.category}</span>
                 </div>
-            </div>
-            <div class="product-btns">
-                <button class="card-btn favorite-btn">&#9733;</button>
-                <button class="card-btn cart-btn">&#128722;</button>
             </div>
             <div class="product-btns">
                 <button class="card-btn edit-btn">✎</button>
@@ -223,6 +219,30 @@ pages.modal = () =>{
         edit_add_modal.style.display = "none"
     })
 
-    
-    
+    // const add_product_to_db_btn = document.getElementById('add-btn')
+}
+
+pages.addProduct = () => {
+    const add_product_to_db_btn = document.getElementById('add-btn')
+    add_product_to_db_btn.addEventListener('click', ()=> {
+        const prod_name =  document.getElementById('add-product-name-input').value
+        const prod_details =  document.getElementById('add-product-details-input').value
+        const prod_category =  document.getElementById('add-product-category-input').value
+        const prod_price =  document.getElementById('add-product-price-input').value
+        const prod_image =  document.getElementById('add-product-image-input').files[0]
+
+        const product_form_data = new FormData();
+        product_form_data.append("name", prod_name);
+        product_form_data.append("details", prod_details);
+        product_form_data.append("category", prod_category);
+        product_form_data.append("price", prod_price);
+        product_form_data.append("image_path", prod_image);
+
+        fetch(pages.base_url + "add_update_product/", {
+            method: "POST",
+            body: product_form_data
+        }).then(response => response.json())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
+    })
 }

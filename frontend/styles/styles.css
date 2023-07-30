@@ -217,6 +217,7 @@ footer{
 
 .add-product-btn{
     width: 100px;
+    border-radius: 15px;
 }
 
 #edit-add-modal{
