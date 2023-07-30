@@ -10,7 +10,7 @@ class Product {
         
     displayProductCard(){
         return `
-        <div class="product-card">
+        <div class="product-card" data-id="${this.id}">
         <img src="data:image/png;base64,${this.image_path}" class="product-image">
         <div class="product-details-container" id="one">
             <div class="product-details">
@@ -158,6 +158,7 @@ pages.signup = () => {
                 fetch(pages.base_url + "register", {
                     method: 'POST',
                     body: signup_form_data,
+                    redirect: 'follow'
                     })
                     .then(response => response.json())
                     .then(data => {
@@ -208,69 +209,97 @@ pages.showProductsDashboard = () => {
         }
 
         const productCards = document.querySelectorAll('.product-card');
-        
-        productCards.forEach((card) => {
-
-            const edit_modal = card.querySelector('.edit-modal');
-            const image = card.querySelector('.product-image');
-            const description = card.querySelector('.card-discription');
-            const edit_btn = card.querySelector(".edit-btn-one")
+        if(signedin_usertype == 'admin'){
+            productCards.forEach((card) => {
             
-            const close_edit_btn = card.querySelector(".close-btn")
-
-            card.addEventListener('mouseenter', (event) => {
-                image.style.display = 'none';
-                description.style.display = 'flex';
-                const product_id = event.currentTarget.dataset.id;
-                localStorage.setItem('prd_id', product_id)
-            })
-
-            card.addEventListener('mouseleave', () => {
-                image.style.display = 'block';
-                description.style.display = 'none';
-                localStorage.removeItem('prd_id')
+                const edit_modal = card.querySelector('.edit-modal')
+                const image = card.querySelector('.product-image')
+                const description = card.querySelector('.card-discription')
+                const edit_btn = card.querySelector(".edit-btn-one")
+                const delete_btn = card.querySelector(".delete-btn-one")
+                
+                const close_edit_btn = card.querySelector(".close-btn")
+    
+                card.addEventListener('mouseenter', (event) => {
+                    image.style.display = 'none';
+                    description.style.display = 'flex';
+                    const product_id = event.currentTarget.dataset.id;
+                    localStorage.setItem('prd_id', product_id)
                 })
-
-            edit_btn.addEventListener('click', ()=>{
-                edit_modal.style.display = 'block'
-            })
-            
-            close_edit_btn.addEventListener('click', ()=>{
-                edit_modal.style.display = 'none'
-            })
-            
-            const edit_btn_and_send = card.querySelector(".edit-btn")
-            edit_btn_and_send.addEventListener('click', () => {
+    
+                card.addEventListener('mouseleave', () => {
+                    image.style.display = 'block';
+                    description.style.display = 'none';
+                    localStorage.removeItem('prd_id')
+                    })
+    
+                delete_btn.addEventListener('click', () => {
+                    fetch(pages.base_url + "delete_product/" + localStorage.getItem('prd_id'))
+                    .then(response => response.json())
+                    .then(data => console.log(data))
+                    .catch(error => console.log('error', error))
+                }) 
+    
+                edit_btn.addEventListener('click', ()=>{
+                    edit_modal.style.display = 'block'
+                })
                 
-                const edit_product_name_input = card.querySelector(".edit-product-name-input")
-                const edit_product_details_input = card.querySelector(".edit-product-details-input")
-                const edit_product_category_input = card.querySelector(".edit-product-category-input")
-                const edit_product_price_input = card.querySelector(".edit-product-price-input")
-                const edit_product_image_input = card.querySelector(".edit-product-image-input")
-
-                const new_name = edit_product_name_input.value
-                const new_details = edit_product_details_input.value
-                const new_category = edit_product_category_input.value
-                const new_price = edit_product_price_input.value
-                const new_image = edit_product_image_input.files[0]
-
-                const new_data = new FormData
+                close_edit_btn.addEventListener('click', ()=>{
+                    edit_modal.style.display = 'none'
+                })
                 
-                new_data.append("name", new_name);
-                new_data.append("details", new_details);
-                new_data.append("category", new_category);
-                new_data.append("price", new_price);
-                new_data.append("image_path", new_image);
-
-                fetch(pages.base_url + "add_update_product/" + localStorage.getItem('prd_id'), {
-                    method: "POST",
-                    body: new_data
-                }).then(response => response.json())
-                .then(result => console.log(result))
-                .catch(error => console.log('error', error));
-
-            })
-            })
+                const edit_btn_and_send = card.querySelector(".edit-btn")
+                edit_btn_and_send.addEventListener('click', () => {
+                    
+                    const edit_product_name_input = card.querySelector(".edit-product-name-input")
+                    const edit_product_details_input = card.querySelector(".edit-product-details-input")
+                    const edit_product_category_input = card.querySelector(".edit-product-category-input")
+                    const edit_product_price_input = card.querySelector(".edit-product-price-input")
+                    const edit_product_image_input = card.querySelector(".edit-product-image-input")
+    
+                    const new_name = edit_product_name_input.value
+                    const new_details = edit_product_details_input.value
+                    const new_category = edit_product_category_input.value
+                    const new_price = edit_product_price_input.value
+                    const new_image = edit_product_image_input.files[0]
+    
+                    const new_data = new FormData
+                    
+                    new_data.append("name", new_name);
+                    new_data.append("details", new_details);
+                    new_data.append("category", new_category);
+                    new_data.append("price", new_price);
+                    new_data.append("image_path", new_image);
+    
+                    fetch(pages.base_url + "add_update_product/" + localStorage.getItem('prd_id'), {
+                        method: "POST",
+                        body: new_data
+                    }).then(response => response.json())
+                    .then(result => console.log(result))
+                    .catch(error => console.log('error', error));
+    
+                })
+                })
+            
+        } else if (signedin_usertype == 'user'){
+            productCards.forEach((card) => {
+                const image = card.querySelector('.product-image')
+                const description = card.querySelector('.card-discription')
+    
+                card.addEventListener('mouseenter', (event) => {
+                    image.style.display = 'none';
+                    description.style.display = 'flex';
+                    const product_id = event.currentTarget.dataset.id;
+                    localStorage.setItem('prd_id', product_id)
+                })
+    
+                card.addEventListener('mouseleave', () => {
+                    image.style.display = 'block';
+                    description.style.display = 'none';
+                    localStorage.removeItem('prd_id')
+                    })
+                })
+        }
         })
     })
 }
