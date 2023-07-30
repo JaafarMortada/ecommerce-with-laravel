@@ -29,7 +29,7 @@ class Product {
             </div>
             <div class="product-btns">
                 <button class="card-btn">&#9733;</button>
-                <button class="card-btn">&#128722;</button>
+                <button class="card-btn add-to-cart-btn">&#128722;</button>
             </div>
         </div>
         <div class="card-discription">
@@ -285,7 +285,7 @@ pages.showProductsDashboard = () => {
             productCards.forEach((card) => {
                 const image = card.querySelector('.product-image')
                 const description = card.querySelector('.card-discription')
-    
+                const add_to_cart_btn = card.querySelector('.add-to-cart-btn')
                 card.addEventListener('mouseenter', (event) => {
                     image.style.display = 'none';
                     description.style.display = 'flex';
@@ -298,6 +298,19 @@ pages.showProductsDashboard = () => {
                     description.style.display = 'none';
                     localStorage.removeItem('prd_id')
                     })
+
+                add_to_cart_btn.addEventListener('click', ()=>{
+                    const add_to_cart_data = new FormData
+                    add_to_cart_data.append('user_id', localStorage.getItem('user_id'))
+                    add_to_cart_data.append('product_id', localStorage.getItem('prd_id'))
+
+                    fetch(pages.base_url + 'add_to_cart',{
+                        method: "POST",
+                        body: add_to_cart_data
+                    }).then(response => response.json())
+                    .then(data => console.log(data))
+                    .catch(error => console.log('error', error))
+                })
                 })
         }
         })
