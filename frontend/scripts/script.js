@@ -37,6 +37,39 @@ class Product {
         </div>
         `
     }
+    displayProductCardForAdmin(){
+        return `
+        <div class="product-card">
+        <img src="../assets/images/no-pic.webp" class="product-image">
+        <div class="product-details-container" id="one">
+            <div class="product-details">
+                <div>
+                    <span class="card-text-name">Name:</span>
+                    <span class="card-text">${this.name}</span>
+                </div>
+                <div>
+                    <span class="card-text-name">Price:</span>
+                    <span class="card-text">${this.price}</span><span class="card-text">$</span>
+                </div>
+                <div>
+                    <span class="card-text-name">Category:</span>
+                    <span class="card-text">${this.category}</span>
+                </div>
+            </div>
+            <div class="product-btns">
+                <button class="card-btn favorite-btn">&#9733;</button>
+                <button class="card-btn cart-btn">&#128722;</button>
+            </div>
+            <div class="product-btns">
+                <button class="card-btn edit-btn">✎</button>
+                <button class="card-btn delete-btn">&#128465;</button>
+            </div>
+        </div>
+        <div class="card-discription">
+            ${this.details}
+        </div>
+        `
+    }
     }
 
 const pages = {};
@@ -63,7 +96,9 @@ pages.login = () => {
                 .then(response => response.json())
                 .then(data => {
                     if(data.authorization.token){
-                        // alert('logged in')
+                        localStorage.setItem('user_id', data.user.id)
+                        localStorage.setItem('usertype', data.user.usertype)
+                        window.location.href='./frontend/html/home.html'
                     }
                 })
                 .catch(error => console.log('error', error));
@@ -119,6 +154,10 @@ pages.signup = () => {
     }
 
 pages.showProductsDashboard = () => {
+    const signedin_usertype = localStorage.getItem('usertype')
+    if (signedin_usertype == 'user'){
+        document.querySelector('.add-product-btn-div').style.display = 'none'
+    }
     const show_classes_form_data = new FormData();
     fetch(pages.base_url + 'dashboard', {
         method: "POST",
@@ -135,8 +174,16 @@ pages.showProductsDashboard = () => {
             element.price,
             element.image_path,
             );
-            
-        document.querySelector('.product-cards-container').innerHTML += product_obj.displayProductCard();
+        
+        if (signedin_usertype == 'user'){
+            document.querySelector('.product-cards-container').innerHTML += product_obj.displayProductCard();
+            document.querySelector('.add-product-btn-div').style.display = 'none'
+        } else if(signedin_usertype == 'admin'){
+            document.querySelector('.product-cards-container').innerHTML += product_obj.displayProductCardForAdmin();
+            document.querySelector('.add-product-btn-div').style.display = 'flex'
+
+        }
+
         const productCards = document.querySelectorAll('.product-card');
         productCards.forEach((card) => {
             card.addEventListener('mouseenter', () => {

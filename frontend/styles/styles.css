@@ -208,3 +208,13 @@ footer{
     padding: 10px;
 }
 
+.add-product-btn-div{
+    /* display: flex; */
+    justify-content: flex-end;
+    padding-right: 30px;
+    padding-bottom: 30px;
+}
+
+.add-product-btn{
+    width: 100px;
+}
