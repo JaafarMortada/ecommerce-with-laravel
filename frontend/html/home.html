@@ -25,7 +25,7 @@
         </div>
     </div>
     <div class="add-product-btn-div">
-        <button class="add-product-btn navbar-button">&#43;</button>
+        <button class="add-product-btn navbar-button" id="add-product-btn">&#43;</button>
 
     </div>
     <div class="product-cards-container">
@@ -79,9 +79,40 @@
             </div>
         </div>
     </footer>
+    <div id="edit-add-modal">
+        <div class="modal-content">
+            <div class="modal-input-with-label">
+                <label for="add-product-name-input">Product name:</label>
+                <input type="text" id="add-product-name-input" name="add-product-name-input" placeholder="Enter the product name">
+            </div>
+            <div class="modal-input-with-label">
+                <label for="add-product-details-input">Product details:</label>
+                <input type="text" id="add-product-details-input" name="add-product-details-input" placeholder="Enter the product details">
+            </div>
+            <div class="modal-input-with-label">
+                <label for="add-product-category-input">Product category:</label>
+                <input type="text" id="add-product-category-input" name="add-product-category-input" placeholder="Enter the product category">
+            </div>
+            <div class="modal-input-with-label">
+                <label for="add-product-price-input">Product price:</label>
+                <input type="text" id="add-product-price-input" name="add-product-price-input" placeholder="Enter the product price">
+            </div>
+            <div class="modal-input-with-label">
+                <label for="add-product-image-input">Product image:</label>
+                <input type="file" id="add-product-image-input" name="add-product-image-input" placeholder="Enter the product price">
+            </div>
+            <div class="modal-btns">
+                <button type="button" class="modal-btn" id="close-btn">close</button>
+                <button type="button" class="modal-btn" id="add-btn">add</button>
+            </div>
+        </div>
+        
+
+    </div>
     <script src="../scripts/script.js"></script>
 </body>
 <script>
     pages.showProductsDashboard()
+    pages.modal()
 </script>
 </html>

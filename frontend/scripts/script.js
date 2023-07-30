@@ -159,7 +159,7 @@ pages.showProductsDashboard = () => {
         document.querySelector('.add-product-btn-div').style.display = 'none'
     }
     const show_classes_form_data = new FormData();
-    fetch(pages.base_url + 'dashboard', {
+    fetch(pages.base_url + 'dashboard/', {
         method: "POST",
         body: show_classes_form_data
         })
@@ -201,4 +201,28 @@ pages.showProductsDashboard = () => {
             });
         });
     })
+}
+
+pages.modal = () =>{
+    const edit_add_modal = document.getElementById('edit-add-modal')
+    // const update_btn = document.getElementById('update-btn')
+    const close_btn = document.getElementById('close-btn')
+    const add_product_btn = document.getElementById('add-product-btn')
+
+    add_product_btn.addEventListener('click', () => {
+        edit_add_modal.style.display = "block"
+    })
+
+    window.addEventListener('click', (e) =>{
+        if (e.target == edit_add_modal) {
+            edit_add_modal.style.display = "none"
+        }
+    })
+
+    close_btn.addEventListener('click', ()=>{
+        edit_add_modal.style.display = "none"
+    })
+
+    
+    
 }
