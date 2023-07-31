@@ -335,9 +335,17 @@ footer{
 }
 
 .cart-title, .fav-title{
+    color: rgb(48, 48, 48);
+    font-weight: 700;
     padding-bottom: 0.5rem;
     border-bottom: 2px solid rgb(241, 80, 80);
 }
+
+.fav-modal-content>.modal-btns{
+    padding-top: 0.5rem;
+    border-top: 2px solid rgb(241, 80, 80)
+}
+
 .modal-input-with-label{
     display: flex;
     flex-flow: column wrap;
