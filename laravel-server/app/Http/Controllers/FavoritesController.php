@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\API\AuthController;
 use Illuminate\Http\Request;
 use App\Models\Favorite;
 use App\Models\Product;
-use Illuminate\Support\Facades\Auth;
 
 class FavoritesController extends Controller
 {
@@ -24,11 +22,15 @@ class FavoritesController extends Controller
     public function viewFavorites(){
         $fav_items = Favorite::all()->where('user_id', auth()->user()->id);
         foreach($fav_items as $fav_item){
+        try{
             $price = Product::find($fav_item->product_id)->price;
             $name = Product::find($fav_item->product_id)->name;
             $fav_item->name = $name;
             $fav_item->price = $price;
-        }
+        } catch (\Throwable $th) {
+            $fav_item->name = 'Deleted Item';
+            $fav_item->price = 0;
+        }}
         return json_encode(["fav_items" => $fav_items]);
     }
 }
