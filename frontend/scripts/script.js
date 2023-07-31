@@ -436,7 +436,8 @@ pages.addProduct = () => {
         const prod_price =  document.getElementById('add-product-price-input').value
         const prod_image =  document.getElementById('add-product-image-input').files[0]
 
-        const product_form_data = new FormData();
+        if(prod_name && prod_details && prod_category && prod_price && prod_image){
+                    const product_form_data = new FormData();
         product_form_data.append("name", prod_name);
         product_form_data.append("details", prod_details);
         product_form_data.append("category", prod_category);
@@ -448,12 +449,22 @@ pages.addProduct = () => {
             body: product_form_data
         }).then(response => response.json())
         .then(result => console.log(result))
-        .catch(error => {add_to_cart_btn.innerHTML = 'Failed'
+        .catch(error => {add_product_to_db_btn.innerHTML = 'Failed'
         add_product_to_db_btn.style.backgroundColor = 'rgb(241, 80, 80)'
         setTimeout(() => { 
         add_product_to_db_btn.style.backgroundColor = '#f5f5f5'
-        add_product_to_db_btn.innerHTML = 'add;'
+        add_product_to_db_btn.innerHTML = 'add'
     }, 3000)});
+        } else {
+            add_product_to_db_btn.innerHTML = 'Failed'
+            add_product_to_db_btn.style.backgroundColor = 'rgb(241, 80, 80)'
+            setTimeout(() => { 
+            add_product_to_db_btn.style.backgroundColor = '#f5f5f5'
+            add_product_to_db_btn.innerHTML = 'add'
+            }, 3000)
+        }
+
+
     })
 }
 
