@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\CartsController;
+use App\Http\Controllers\FavoritesController;
 
 Route::controller(AuthController::class)->group(function () {
     Route::post('login', 'login');
@@ -17,3 +18,4 @@ Route::get('/delete_product/{id}', [ProductsController::class, "deleteProduct"])
 Route::post('/dashboard', [ProductsController::class, "getProducts"]);
 
 Route::post('/add_to_cart/{action?}', [CartsController::class, "addToCart"]);
+Route::post('/add_to_favorites/{action?}', [FavoritesController::class, "addToFavorites"]);
