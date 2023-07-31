@@ -144,7 +144,6 @@ pages.login = () => {
                 .then(response => response.json())
                 .then(data => {
                     if(data.authorization.token){
-                        localStorage.setItem('user_id', data.user.id)
                         localStorage.setItem('usertype', data.user.usertype)
                         localStorage.setItem('token', data.authorization.token)
                         window.location.href='./frontend/html/home.html'
@@ -152,7 +151,11 @@ pages.login = () => {
                 })
                 .catch(error => {
                     signin_btn.innerHTML = 'Failed'
-                    setTimeout(() => { signin_btn.innerHTML = 'Login' }, 2000)
+                    signin_btn.style.backgroundColor = 'rgb(241, 80, 80)'
+                    setTimeout(() => { 
+                        signin_btn.style.backgroundColor = '#f5f5f5'
+                        signin_btn.innerHTML = 'Login'
+                    }, 3000)
                 });
             }
     })
@@ -195,13 +198,27 @@ pages.signup = () => {
                             window.location.href='../../index.html'
                         }
                     })
-                    .catch(error => console.log('error', error));
+                    .catch(error => {
+                        signup_btn.innerHTML = 'Failed'
+                        setTimeout(() => { signup_btn.innerHTML = 'Signup' }, 3000)
+                    });
             } else {
-                console.log('passwords don\'t match.')
+                    signup_btn.innerHTML = 'Failed'
+                    signup_btn.style.backgroundColor = 'rgb(241, 80, 80)'
+                    setTimeout(() => { 
+                        signup_btn.style.backgroundColor = '#f5f5f5'
+                        signup_btn.innerHTML = 'Signup'
+                    }, 3000)
+                
             }
             
             }else{
-                console.log('fill all please.')
+                signup_btn.innerHTML = 'Failed'
+                    signup_btn.style.backgroundColor = 'rgb(241, 80, 80)'
+                    setTimeout(() => { 
+                        signup_btn.style.backgroundColor = '#f5f5f5'
+                        signup_btn.innerHTML = 'Signup'
+                    }, 3000)
             }
     })
     }
@@ -266,7 +283,14 @@ pages.showProductsDashboard = () => {
                     fetch(pages.base_url + "delete_product/" + localStorage.getItem('prd_id'))
                     .then(response => response.json())
                     .then(data => console.log(data))
-                    .catch(error => console.log('error', error))
+                    .catch(error => 
+                        {delete_btn.innerHTML = 'Failed'
+                        delete_btn.style.backgroundColor = 'rgb(241, 80, 80)'
+                        setTimeout(() => { 
+                        delete_btn.style.backgroundColor = '#f5f5f5'
+                        delete_btn.innerHTML = '&#128465;'
+                    }, 3000)}
+                    )
                 }) 
     
                 edit_btn.addEventListener('click', ()=>{
@@ -305,7 +329,14 @@ pages.showProductsDashboard = () => {
                         body: new_data
                     }).then(response => response.json())
                     .then(result => console.log(result))
-                    .catch(error => console.log('error', error));
+                    .catch(error =>
+                        {edit_btn_and_send.innerHTML = 'Failed'
+                        edit_btn_and_send.style.backgroundColor = 'rgb(241, 80, 80)'
+                        setTimeout(() => { 
+                        edit_btn_and_send.style.backgroundColor = '#f5f5f5'
+                        edit_btn_and_send.innerHTML = 'edit'
+                    }, 3000)}
+                    );
     
                 })
                 })
@@ -331,8 +362,6 @@ pages.showProductsDashboard = () => {
 
                 add_to_cart_btn.addEventListener('click', ()=>{
                     const add_to_cart_data = new FormData
-                    
-                    // add_to_cart_data.append('user_id', localStorage.getItem('user_id'))
                     add_to_cart_data.append('product_id', localStorage.getItem('prd_id'))
                     fetch(pages.base_url + 'add_to_cart',{
                         method: "POST",
@@ -343,12 +372,16 @@ pages.showProductsDashboard = () => {
                     .then(data => {
                         add_to_cart_btn.style.backgroundColor = "rgba(51, 178, 73, 0.7)"
                     })
-                    .catch(error => console.log('error', error))
+                    .catch(error => {add_to_cart_btn.innerHTML = 'X'
+                    add_to_cart_btn.style.backgroundColor = 'rgb(241, 80, 80)'
+                    setTimeout(() => { 
+                    add_to_cart_btn.style.backgroundColor = '#f5f5f5'
+                    add_to_cart_btn.innerHTML = '&#128722;'
+                }, 3000)})
                 })
 
                 add_to_fav_btn.addEventListener('click', ()=>{
                     const add_to_fav_data = new FormData
-                    // add_to_fav_data.append('user_id', localStorage.getItem('user_id'))
                     add_to_fav_data.append('product_id', localStorage.getItem('prd_id'))
                     fetch(pages.base_url + 'add_to_favorites',{
                         method: "POST",
@@ -359,7 +392,13 @@ pages.showProductsDashboard = () => {
                     .then(data => {
                         add_to_fav_btn.style.backgroundColor = 'rgba(255,215,0,0.7)'
                     })
-                    .catch(error => console.log('error', error))
+                    .catch(error => {
+                        add_to_fav_btn.innerHTML = 'X'
+                        add_to_fav_btn.style.backgroundColor = 'rgb(241, 80, 80)'
+                        setTimeout(() => { 
+                        add_to_fav_btn.style.backgroundColor = '#f5f5f5'
+                        add_to_fav_btn.innerHTML = '&#128722;'
+                    }, 3000)})
                 })
                 })
         }
@@ -369,7 +408,6 @@ pages.showProductsDashboard = () => {
 
 pages.modal = () =>{
     const edit_add_modal = document.getElementById('edit-add-modal')
-    // const update_btn = document.getElementById('update-btn')
     const close_btn = document.getElementById('close-btn')
     const add_product_btn = document.getElementById('add-product-btn')
 
@@ -387,7 +425,6 @@ pages.modal = () =>{
         edit_add_modal.style.display = "none"
     })
 
-    // const add_product_to_db_btn = document.getElementById('add-btn')
 }
 
 pages.addProduct = () => {
@@ -411,7 +448,12 @@ pages.addProduct = () => {
             body: product_form_data
         }).then(response => response.json())
         .then(result => console.log(result))
-        .catch(error => console.log('error', error));
+        .catch(error => {add_to_cart_btn.innerHTML = 'Failed'
+        add_product_to_db_btn.style.backgroundColor = 'rgb(241, 80, 80)'
+        setTimeout(() => { 
+        add_product_to_db_btn.style.backgroundColor = '#f5f5f5'
+        add_product_to_db_btn.innerHTML = 'add;'
+    }, 3000)});
     })
 }
 
@@ -422,13 +464,10 @@ pages.cartModal = () =>{
     open_cart_btn.addEventListener('click', () => {
         cart_modal.style.display = "block"
 
-        // const cart_form_data = new FormData
-        // cart_form_data.append("user_id", localStorage.getItem('user_id'))
         
         fetch(pages.base_url + "view_cart", {
             method: "POST",
             headers: header,
-            // body: cart_form_data
         }).then(response => response.json())
         .then(data => {
             Object.values(data.cart_items).forEach(item => {
@@ -488,24 +527,3 @@ pages.favModal = () =>{
     })
 
 }
-
-// pages.logout = () => {
-//     const logout_btn = document.getElementById('logout-btn')
-//     logout_btn.addEventListener('click', e => {
-//         e.preventDefault()
-//         const id = localStorage.getItem('user_id')
-//         const logout_form_data = new FormData
-//         logout_form_data.append("user_id", id);
-    
-//             fetch(pages.base_url + "logout", {
-//                 method: 'POST',
-//                 body: logout_form_data,
-//                 })
-//                 .then(response => response.json())
-//                 .then(data => {
-//                     console.log(data)
-//                 })
-//                 .catch(error => console.log('error', error));
-            
-//     })
-// }
