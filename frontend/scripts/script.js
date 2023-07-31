@@ -95,6 +95,28 @@ class Product {
     }
     }
 
+class Cart {
+    constructor(prod_name, prod_price, total){
+        this.prod_name = prod_name
+        this.prod_price = prod_price
+        this.total = total
+    }
+
+    addToCartModal() {
+        return `
+        <div class="item-in-cart-div">
+                <div>&nbsp; &#x25CF; ${this.prod_name}</div>
+                <div>${this.prod_price}$ &nbsp;</div>
+            </div>
+        `
+    }
+
+    addTotalToCartModal(){
+        return`
+        <span class="total-text">Total: ${this.total}$ &nbsp;</span>
+        `
+    }
+}
 const pages = {};
 
 pages.base_url = "http://127.0.0.1:8000/api/";
@@ -385,15 +407,34 @@ pages.cartModal = () =>{
     const open_cart_btn = document.getElementById('view-cart-nav-btn')
     open_cart_btn.addEventListener('click', () => {
         cart_modal.style.display = "block"
+
+        const cart_form_data = new FormData
+        cart_form_data.append("user_id", localStorage.getItem('user_id'))
+        fetch(pages.base_url + "view_cart", {
+            method: "POST",
+            body: cart_form_data
+        }).then(response => response.json())
+        .then(data => {
+            Object.values(data.cart_items).forEach(item => {
+                const cart_item = new Cart(item.name, item.price, item.total)
+                document.querySelector('.cart-items').innerHTML += cart_item.addToCartModal()
+            })
+            const total = new Cart("","", data.total)
+            document.querySelector('.total-div').innerHTML += total.addTotalToCartModal()
+        })
     })
 
     window.addEventListener('click', (e) =>{
         if (e.target == cart_modal) {
+            document.querySelector('.cart-items').innerHTML = ""
+            document.querySelector('.total-div').innerHTML = ""
             cart_modal.style.display = "none"
         }
     })
 
     close_cart_btn.addEventListener('click', ()=>{
+        document.querySelector('.cart-items').innerHTML = ""
+        document.querySelector('.total-div').innerHTML = ""
         cart_modal.style.display = "none"
     })
 
