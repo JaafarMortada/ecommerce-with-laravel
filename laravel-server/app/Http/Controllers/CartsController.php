@@ -10,17 +10,21 @@ use App\Models\Product;
 class CartsController extends Controller
 {
     public function addToCart(Request $request){
+
+        $user_id = auth()->user()->id;
+        // $user_id = $request->user_id;
         $cart_item = new Cart;
-        $cart_item->user_id = $request->user_id;
+        $cart_item->user_id = $user_id;
         $cart_item->product_id = $request->product_id;
         $cart_item->save();
 
         return json_encode(["cart_item" => $cart_item]);
     }
 
-    public function viewCart(Request $request){
+    public function viewCart(){
         $total = 0;
-        $cart_items = Cart::all()->where('user_id', $request->user_id);
+        $user_id = auth()->user()->id;
+        $cart_items = Cart::all()->where('user_id', $user_id);
         foreach($cart_items as $cart_item){
             $price = Product::find($cart_item->product_id)->price;
             $name = Product::find($cart_item->product_id)->name;
@@ -29,6 +33,6 @@ class CartsController extends Controller
             $total += intval($price);
         }
         // $cart_items->save();
-        return json_encode(["cart_items" => $cart_items, "total" => $total]);
+        return json_encode(["cart_items" => $cart_items, "total" => $total, 'dsfsdf' => $user_id]);
     }
 }
