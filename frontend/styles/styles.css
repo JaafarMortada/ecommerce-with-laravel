@@ -220,7 +220,7 @@ footer{
     border-radius: 15px;
 }
 
-#edit-add-modal{
+#edit-add-modal, #cart-modal{
     display: none;
     position: fixed;
     z-index: 1;
@@ -258,6 +258,75 @@ footer{
     gap: 1rem;
 }
 
+/* https://cssarrowplease.com */
+.cart-modal-content{
+    margin-top: 7%;
+    margin-right: 3% ;
+    width: 30%;
+    /* right: 10%; */
+    position: relative;
+}
+.cart-modal-content:after, .cart-modal-content:before {
+	bottom: 100%;
+	left: 84%;
+	border: solid transparent;
+	content: "";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.cart-modal-content:after {
+	border-color: rgba(136, 183, 213, 0);
+	border-bottom-color: #f5f5f5;
+	border-width: 30px;
+	margin-left: -30px;
+}
+.cart-modal-content:before {
+	border-color: rgba(194, 225, 245, 0);
+	border-bottom-color: rgb(241, 80, 80);
+	border-width: 36px;
+	margin-left: -36px;
+}
+
+.total-div{
+    display: flex;
+    justify-content: flex-end;
+    padding: 1rem 0 1rem;
+    border-top: 2px solid rgb(241, 80, 80);
+    border-bottom: 2px solid rgb(241, 80, 80);
+}
+
+.total-text{
+    color: rgb(48, 48, 48);
+    font-weight: 700;
+}
+
+.item-in-cart-div{
+    width: 100%;
+    display: flex;
+    padding: 0.5rem 0 0.5rem;
+    border-radius: 5px;
+    border: 2px solid #f5f5f5;
+    justify-content: space-between;
+    cursor: pointer;
+    -webkit-transition: 0.5s;
+}
+.item-in-cart-div:hover{
+    background-color: rgba(48, 48, 48, 0.1);
+    border: 2px solid rgb(241, 80, 80);
+}
+
+.item-in-cart-div>div, .cart-title{
+    color: rgb(48, 48, 48);
+    font-weight: 700;
+}
+
+.cart-title{
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid rgb(241, 80, 80);
+}
 .modal-input-with-label{
     display: flex;
     flex-flow: column wrap;
@@ -293,7 +362,7 @@ input:focus{
     gap: 1rem;
 }
 
-#update-btn, #close-btn, #add-btn, .edit-btn{
+#update-btn, #close-btn, #add-btn, .edit-btn, #checkout-btn, #close-cart-btn{
     background-color: #f5f5f5;
     border: 0;
     padding: 10px;
@@ -305,6 +374,7 @@ input:focus{
     border-radius: 5px;
 }
 
-#update-btn:hover, #close-btn:hover , #add-btn:hover, .edit-btn:hover{
+#update-btn:hover, #close-btn:hover , #add-btn:hover, .edit-btn:hover, 
+#checkout-btn:hover, #close-cart-btn:hover{
     background-color: rgb(241, 80, 80);
 }

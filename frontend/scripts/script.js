@@ -378,3 +378,23 @@ pages.addProduct = () => {
         .catch(error => console.log('error', error));
     })
 }
+
+pages.cartModal = () =>{
+    const cart_modal = document.getElementById('cart-modal')
+    const close_cart_btn = document.getElementById('close-cart-btn')
+    const open_cart_btn = document.getElementById('view-cart-nav-btn')
+    open_cart_btn.addEventListener('click', () => {
+        cart_modal.style.display = "block"
+    })
+
+    window.addEventListener('click', (e) =>{
+        if (e.target == cart_modal) {
+            cart_modal.style.display = "none"
+        }
+    })
+
+    close_cart_btn.addEventListener('click', ()=>{
+        cart_modal.style.display = "none"
+    })
+
+}
