@@ -13,13 +13,13 @@
                 <img src="https://www.svgrepo.com/show/25775/ecommerce.svg" class="navbar-logo">
             </div>
             
-            <button class="navbar-button" >Home</button>
+            <button class="navbar-button" disabled>Home</button>
         </div>
         
         <div class="right-nav">
             <!-- <span>Products</span> -->
-            <button class="navbar-button">Contact us</button>
-            <button class="navbar-button">Account</button>
+            <button class="navbar-button" disabled>Contact us</button>
+            <button type="button" class="navbar-button" id="logout-btn">Logout</button>
             <button class="navbar-button view-cart-nav-btn" id="view-cart-nav-btn">&#128722;</button>
             <button class="navbar-button view-fav-nav-btn" id="view-fav-nav-btn">&#9733;</button>
         </div>
@@ -129,5 +129,6 @@
     pages.addProduct()
     pages.cartModal()
     pages.favModal()
+    // pages.logout()
 </script>
 </html>

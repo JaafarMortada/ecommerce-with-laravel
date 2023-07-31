@@ -169,7 +169,7 @@ pages.signup = () => {
         if (usertype_checkbox.checked){
             usertype = 'admin'
         }
-        if(email && password && verify_password && email && name ){
+        if(email && password && verify_password && name ){
             if (password == verify_password){
                 const signup_form_data = new FormData();
                 signup_form_data.append("name", name);
@@ -185,7 +185,7 @@ pages.signup = () => {
                     .then(response => response.json())
                     .then(data => {
                         if(data.message == 'User created successfully'){
-                            console.log('User created successfully')
+                            window.location.href='../../index.html'
                         }
                     })
                     .catch(error => console.log('error', error));
@@ -331,7 +331,9 @@ pages.showProductsDashboard = () => {
                         method: "POST",
                         body: add_to_cart_data
                     }).then(response => response.json())
-                    .then(data => console.log(data))
+                    .then(data => {
+                        add_to_cart_btn.style.backgroundColor = "rgba(51, 178, 73, 0.7)"
+                    })
                     .catch(error => console.log('error', error))
                 })
 
@@ -344,7 +346,9 @@ pages.showProductsDashboard = () => {
                         method: "POST",
                         body: add_to_fav_data
                     }).then(response => response.json())
-                    .then(data => console.log(data))
+                    .then(data => {
+                        add_to_fav_btn.style.backgroundColor = 'rgba(255,215,0,0.7)'
+                    })
                     .catch(error => console.log('error', error))
                 })
                 })
@@ -475,3 +479,24 @@ pages.favModal = () =>{
     })
 
 }
+
+// pages.logout = () => {
+//     const logout_btn = document.getElementById('logout-btn')
+//     logout_btn.addEventListener('click', e => {
+//         e.preventDefault()
+//         const id = localStorage.getItem('user_id')
+//         const logout_form_data = new FormData
+//         logout_form_data.append("user_id", id);
+    
+//             fetch(pages.base_url + "logout", {
+//                 method: 'POST',
+//                 body: logout_form_data,
+//                 })
+//                 .then(response => response.json())
+//                 .then(data => {
+//                     console.log(data)
+//                 })
+//                 .catch(error => console.log('error', error));
+            
+//     })
+// }
