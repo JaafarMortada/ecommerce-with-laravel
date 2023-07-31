@@ -265,6 +265,7 @@ footer{
     width: 30%;
     /* right: 10%; */
     position: relative;
+    min-width: 280px;
 }
 .cart-modal-content:after, .cart-modal-content:before {
 	bottom: 100%;
@@ -290,10 +291,20 @@ footer{
 	margin-left: -36px;
 }
 
+.cart-items{
+    max-height: 30vh;
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+.cart-items::-webkit-scrollbar {
+    display: none;
+}
 .total-div{
     display: flex;
     justify-content: flex-end;
     padding: 1rem 0 1rem;
+    padding-right: 0.4rem;
     border-top: 2px solid rgb(241, 80, 80);
     border-bottom: 2px solid rgb(241, 80, 80);
 }
@@ -304,7 +315,7 @@ footer{
 }
 
 .item-in-cart-div{
-    width: 100%;
+    width: 96%;
     display: flex;
     padding: 0.5rem 0 0.5rem;
     border-radius: 5px;
