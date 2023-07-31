@@ -21,7 +21,7 @@
             <button class="navbar-button">Contact us</button>
             <button class="navbar-button">Account</button>
             <button class="navbar-button view-cart-nav-btn" id="view-cart-nav-btn">&#128722;</button>
-            <button class="navbar-button">&#9733;</button>
+            <button class="navbar-button view-fav-nav-btn" id="view-fav-nav-btn">&#9733;</button>
         </div>
     </div>
     <div class="add-product-btn-div">
@@ -50,6 +50,24 @@
         </div>
         
 
+    </div>
+
+    <div id="fav-modal">
+        <div class="modal-content fav-modal-content">
+            <div class="fav-title">
+                <div>&nbsp; Your favorites:</div>
+            </div>
+            <div class="fav-items">
+            
+            </div>
+            
+            <div class="modal-btns">
+                <button type="button" class="modal-btn" id="close-fav-btn">close</button> 
+            </div>
+                
+            </div>
+        </div>
+        
     </div>
 
     <div class="product-cards-container">
@@ -110,5 +128,6 @@
     pages.modal()
     pages.addProduct()
     pages.cartModal()
+    pages.favModal()
 </script>
 </html>

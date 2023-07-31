@@ -439,3 +439,40 @@ pages.cartModal = () =>{
     })
 
 }
+
+pages.favModal = () =>{
+    const fav_modal = document.getElementById('fav-modal')
+    const close_fav_btn = document.getElementById('close-fav-btn')
+    const open_fav_btn = document.getElementById('view-fav-nav-btn')
+    open_fav_btn.addEventListener('click', () => {
+        fav_modal.style.display = "block"
+
+    //     const cart_form_data = new FormData
+    //     cart_form_data.append("user_id", localStorage.getItem('user_id'))
+    //     fetch(pages.base_url + "view_cart", {
+    //         method: "POST",
+    //         body: cart_form_data
+    //     }).then(response => response.json())
+    //     .then(data => {
+    //         Object.values(data.cart_items).forEach(item => {
+    //             const cart_item = new Cart(item.name, item.price, item.total)
+    //             document.querySelector('.cart-items').innerHTML += cart_item.addToCartModal()
+    //         })
+    //         const total = new Cart("","", data.total)
+    //         document.querySelector('.total-div').innerHTML += total.addTotalToCartModal()
+    //     })
+    })
+
+    window.addEventListener('click', (e) =>{
+        if (e.target == fav_modal) {
+            document.querySelector('.fav-items').innerHTML = ""
+            fav_modal.style.display = "none"
+        }
+    })
+
+    close_fav_btn.addEventListener('click', ()=>{
+        document.querySelector('.fav-items').innerHTML = ""
+        fav_modal.style.display = "none"
+    })
+
+}

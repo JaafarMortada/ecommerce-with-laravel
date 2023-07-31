@@ -220,7 +220,7 @@ footer{
     border-radius: 15px;
 }
 
-#edit-add-modal, #cart-modal{
+#edit-add-modal, #cart-modal, #fav-modal{
     display: none;
     position: fixed;
     z-index: 1;
@@ -259,7 +259,7 @@ footer{
 }
 
 /* https://cssarrowplease.com */
-.cart-modal-content{
+.cart-modal-content, .fav-modal-content{
     margin-top: 7%;
     margin-right: 3% ;
     width: 30%;
@@ -291,13 +291,13 @@ footer{
 	margin-left: -36px;
 }
 
-.cart-items{
+.cart-items, .fav-items{
     max-height: 30vh;
     overflow: auto;
     overflow-x: hidden;
 }
 
-.cart-items::-webkit-scrollbar {
+.cart-items::-webkit-scrollbar, .fav-items::-webkit-scrollbar {
     display: none;
 }
 .total-div{
@@ -314,7 +314,7 @@ footer{
     font-weight: 700;
 }
 
-.item-in-cart-div{
+.item-in-cart-div, .item-in-fav-div{
     width: 96%;
     display: flex;
     padding: 0.5rem 0 0.5rem;
@@ -324,17 +324,17 @@ footer{
     cursor: pointer;
     -webkit-transition: 0.5s;
 }
-.item-in-cart-div:hover{
+.item-in-cart-div:hover, .item-in-fav-div:hover{
     background-color: rgba(48, 48, 48, 0.1);
     border: 2px solid rgb(241, 80, 80);
 }
 
-.item-in-cart-div>div, .cart-title{
+.item-in-cart-div>div, .item-in-fav-div>div .cart-title{
     color: rgb(48, 48, 48);
     font-weight: 700;
 }
 
-.cart-title{
+.cart-title, .fav-title{
     padding-bottom: 0.5rem;
     border-bottom: 2px solid rgb(241, 80, 80);
 }
@@ -373,7 +373,7 @@ input:focus{
     gap: 1rem;
 }
 
-#update-btn, #close-btn, #add-btn, .edit-btn, #checkout-btn, #close-cart-btn{
+#update-btn, #close-btn, #add-btn, .edit-btn, #checkout-btn, #close-cart-btn, #close-fav-btn{
     background-color: #f5f5f5;
     border: 0;
     padding: 10px;
@@ -386,6 +386,6 @@ input:focus{
 }
 
 #update-btn:hover, #close-btn:hover , #add-btn:hover, .edit-btn:hover, 
-#checkout-btn:hover, #close-cart-btn:hover{
+#checkout-btn:hover, #close-cart-btn:hover, #close-fav-btn:hover{
     background-color: rgb(241, 80, 80);
 }
