@@ -23,6 +23,9 @@ class CartsController extends Controller
         $cart_items = Cart::all()->where('user_id', $request->user_id);
         foreach($cart_items as $cart_item){
             $price = Product::find($cart_item->product_id)->price;
+            $name = Product::find($cart_item->product_id)->name;
+            $cart_item->name = $name;
+            $cart_item->price = $price;
             $total += intval($price);
         }
         // $cart_items->save();
