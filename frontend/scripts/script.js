@@ -95,6 +95,8 @@ class Product {
     }
     }
 
+const header = { Authorization: `Bearer ${localStorage.getItem('token')}` }
+
 class Cart {
     constructor(prod_name, prod_price, total){
         this.prod_name = prod_name
@@ -125,6 +127,7 @@ pages.login = () => {
     const email_input = document.getElementById('email-input')
     const password_input = document.getElementById('password-input')
     const signin_btn = document.getElementById('signin-btn')
+    localStorage.clear()
     signin_btn.addEventListener('click', e => {
         e.preventDefault()
         const email = email_input.value
@@ -143,10 +146,14 @@ pages.login = () => {
                     if(data.authorization.token){
                         localStorage.setItem('user_id', data.user.id)
                         localStorage.setItem('usertype', data.user.usertype)
+                        localStorage.setItem('token', data.authorization.token)
                         window.location.href='./frontend/html/home.html'
                     }
                 })
-                .catch(error => console.log('error', error));
+                .catch(error => {
+                    signin_btn.innerHTML = 'Failed'
+                    setTimeout(() => { signin_btn.innerHTML = 'Login' }, 2000)
+                });
             }
     })
     }
@@ -324,12 +331,14 @@ pages.showProductsDashboard = () => {
 
                 add_to_cart_btn.addEventListener('click', ()=>{
                     const add_to_cart_data = new FormData
-                    add_to_cart_data.append('user_id', localStorage.getItem('user_id'))
+                    
+                    // add_to_cart_data.append('user_id', localStorage.getItem('user_id'))
                     add_to_cart_data.append('product_id', localStorage.getItem('prd_id'))
-
                     fetch(pages.base_url + 'add_to_cart',{
                         method: "POST",
-                        body: add_to_cart_data
+                        headers: header,
+                        body: add_to_cart_data,
+                        redirect: 'follow'
                     }).then(response => response.json())
                     .then(data => {
                         add_to_cart_btn.style.backgroundColor = "rgba(51, 178, 73, 0.7)"
@@ -339,12 +348,13 @@ pages.showProductsDashboard = () => {
 
                 add_to_fav_btn.addEventListener('click', ()=>{
                     const add_to_fav_data = new FormData
-                    add_to_fav_data.append('user_id', localStorage.getItem('user_id'))
+                    // add_to_fav_data.append('user_id', localStorage.getItem('user_id'))
                     add_to_fav_data.append('product_id', localStorage.getItem('prd_id'))
-
                     fetch(pages.base_url + 'add_to_favorites',{
                         method: "POST",
-                        body: add_to_fav_data
+                        headers: header,
+                        body: add_to_fav_data,
+                        redirect: 'follow'
                     }).then(response => response.json())
                     .then(data => {
                         add_to_fav_btn.style.backgroundColor = 'rgba(255,215,0,0.7)'
@@ -412,11 +422,13 @@ pages.cartModal = () =>{
     open_cart_btn.addEventListener('click', () => {
         cart_modal.style.display = "block"
 
-        const cart_form_data = new FormData
-        cart_form_data.append("user_id", localStorage.getItem('user_id'))
+        // const cart_form_data = new FormData
+        // cart_form_data.append("user_id", localStorage.getItem('user_id'))
+        
         fetch(pages.base_url + "view_cart", {
             method: "POST",
-            body: cart_form_data
+            headers: header,
+            // body: cart_form_data
         }).then(response => response.json())
         .then(data => {
             Object.values(data.cart_items).forEach(item => {
@@ -450,12 +462,9 @@ pages.favModal = () =>{
     const open_fav_btn = document.getElementById('view-fav-nav-btn')
     open_fav_btn.addEventListener('click', () => {
         fav_modal.style.display = "block"
-
-        const fav_form_data = new FormData
-        fav_form_data.append("user_id", localStorage.getItem('user_id'))
         fetch(pages.base_url + "view_fav", {
             method: "POST",
-            body: fav_form_data
+            headers: header,
         }).then(response => response.json())
         .then(data => {
             Object.values(data.fav_items).forEach(item => {
