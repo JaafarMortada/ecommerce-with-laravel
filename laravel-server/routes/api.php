@@ -18,4 +18,5 @@ Route::get('/delete_product/{id}', [ProductsController::class, "deleteProduct"])
 Route::post('/dashboard', [ProductsController::class, "getProducts"]);
 
 Route::post('/add_to_cart/{action?}', [CartsController::class, "addToCart"]);
+Route::post('/view_cart/{action?}', [CartsController::class, "viewCart"]);
 Route::post('/add_to_favorites/{action?}', [FavoritesController::class, "addToFavorites"]);
